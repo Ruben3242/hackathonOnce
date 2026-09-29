@@ -1,0 +1,14 @@
+node_modules
+.next
+out
+*.log
+.DS_Store
+.env*.local
+data/
+*.joblib
+.venv
+android-webview/.gradle
+android-webview/build
+android-webview/app/build
+android-webview/local.properties
+.android-sdk

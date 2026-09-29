@@ -1,0 +1,10 @@
+Diagrama: Caso nuevo 2 · digital Kaggle (1B2Krk1-2p5-4p3-8-4R3-4n3-8-2r5.jpeg)
+Tipo: tablero digital 8x8 (fuera de los 6 ONCE del PDF).
+Elementos: 9 piezas, 0 resaltes, 0 flechas.
+
+Tablero:
+Blancas: Re⠦ Te⠲ Ab⠦
+Negras: Rg⠦ Tc⠂ Tf⠦ Ce⠒ c⠶ e⠖
+
+Audio:
+Blancas: Rey en E8, Torre en E4, Alfil en B8. Negras: Rey en G8, Torres en C1 y F8, Caballo en E3, Peones en C7 y E6.

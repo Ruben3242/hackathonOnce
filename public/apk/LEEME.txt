@@ -1,0 +1,8 @@
+Descarga: abre en el móvil http://<IP-del-PC>:3000/instalar y pulsa «Descargar APK».
+
+O copia este archivo al teléfono por cable USB / Drive.
+
+Al instalar: permite orígenes desconocidos.
+Al abrir: pega http://<IP>:3000/movil (misma Wi‑Fi) o la URL HTTPS del túnel.
+
+Compilar de nuevo (sin Android Studio): npm.cmd run apk

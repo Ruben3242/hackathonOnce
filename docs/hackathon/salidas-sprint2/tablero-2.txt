@@ -1,0 +1,12 @@
+Diagrama: Tablero 2 · libro de ajedrez, con flecha y resaltes amarillos
+Tipo: tablero de libro 8x8.
+Elementos: 28 piezas, 2 resaltes, 1 flecha.
+
+Tablero:
+Blancas: Re⠂ Dd⠂ Ta⠂ Th⠂ Cc⠒ Af⠂ Af⠲ a⠆ b⠆ c⠆ e⠲ f⠆ g⠆ h⠆
+Negras: Re⠦ Dd⠦ Ta⠦ Th⠦ Cg⠲ Ac⠦ Af⠦ a⠶ b⠶ d⠖ e⠢ f⠶ g⠶ h⠶
+)Resaltadas en amarillo las casillas d⠂ y d⠲(
+d⠲¬⠒⠕¬d⠂
+
+Audio:
+Blancas: Rey en E1, Dama en D1, Torres en A1 y H1, Caballo en C3, Alfiles en F1 y F4, Peones en A2, B2, C2, E4, F2, G2 y H2. Negras: Rey en E8, Dama en D8, Torres en A8 y H8, Caballo en G4, Alfiles en C8 y F8, Peones en A7, B7, D6, E5, F7, G7 y H7. casillas en amarillo: D1 y D4. Flecha de D4 a D1.

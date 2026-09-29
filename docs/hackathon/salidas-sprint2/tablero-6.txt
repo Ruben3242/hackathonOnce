@@ -1,0 +1,14 @@
+Diagrama: Tablero 6 · caballo en d2 con tres flechas
+Tipo: tablero de libro 8x8.
+Elementos: 30 piezas, 3 resaltes, 3 flechas.
+
+Tablero:
+Blancas: Rg⠂ Dd⠂ Ta⠂ Te⠂ Cd⠆ Cf⠒ Ac⠂ Ac⠆ b⠲ c⠒ d⠢ e⠲ f⠆ g⠆ h⠒
+Negras: Rg⠦ Dc⠶ Tb⠦ Tf⠦ Cb⠶ Cf⠖ Ac⠦ Ae⠶ b⠢ c⠢ d⠖ e⠢ f⠶ g⠶ h⠶
+)Resaltadas en amarillo las casillas b⠶ y d⠦ y, en rojo, la casilla c⠂(
+d⠆¬⠒⠕¬b⠂
+d⠆¬⠒⠕¬b⠒
+d⠆¬⠒⠕¬f⠂
+
+Audio:
+Blancas: Rey en G1, Dama en D1, Torres en A1 y E1, Caballos en D2 y F3, Alfiles en C1 y C2, Peones en B4, C3, D5, E4, F2, G2 y H3. Negras: Rey en G8, Dama en C7, Torres en B8 y F8, Caballos en B7 y F6, Alfiles en C8 y E7, Peones en B5, C5, D6, E5, F7, G7 y H7. casillas en amarillo: B7 y D8. casillas en rojo: C1. Flecha de D2 a B1. Flecha de D2 a B3. Flecha de D2 a F1.

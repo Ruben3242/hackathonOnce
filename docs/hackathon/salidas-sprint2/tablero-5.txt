@@ -1,0 +1,14 @@
+Diagrama: Tablero 5 · resaltes amarillo y rojo, tres flechas
+Tipo: tablero de libro 8x8.
+Elementos: 22 piezas, 3 resaltes, 3 flechas.
+
+Tablero:
+Blancas: Rg⠂ Dd⠒ Tc⠂ Cd⠆ Ch⠢ Ac⠒ c⠲ d⠢ e⠲ g⠆ h⠒
+Negras: Rg⠦ Db⠦ Ta⠆ Tb⠖ Ad⠖ Ad⠶ c⠢ e⠢ f⠖ f⠶ h⠖
+)Resaltadas en amarillo las casillas g⠒ y h⠢ y, en rojo, la casilla f⠖(
+c⠂¬⠒⠕¬f⠂
+d⠒¬⠒⠕¬g⠒
+h⠢¬⠒⠕¬f⠖
+
+Audio:
+Blancas: Rey en G1, Dama en D3, Torre en C1, Caballos en D2 y H5, Alfil en C3, Peones en C4, D5, E4, G2 y H3. Negras: Rey en G8, Dama en B8, Torres en A2 y B6, Alfiles en D6 y D7, Peones en C5, E5, F6, F7 y H6. casillas en amarillo: G3 y H5. casillas en rojo: F6. Flecha de C1 a F1. Flecha de D3 a G3. Flecha de H5 a F6.

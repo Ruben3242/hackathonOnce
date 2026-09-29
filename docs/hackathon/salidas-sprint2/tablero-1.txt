@@ -1,0 +1,11 @@
+Diagrama: Tablero 1 · libro de ajedrez, posición inicial con resaltes
+Tipo: tablero de libro 8x8.
+Elementos: 32 piezas, 2 resaltes, 0 flechas.
+
+Tablero:
+Blancas: Re⠂ Dd⠂ Ta⠂ Th⠂ Cc⠒ Cf⠒ Ac⠲ Ag⠒ a⠆ b⠆ c⠆ d⠒ e⠲ f⠆ g⠆ h⠆
+Negras: Re⠦ Dd⠦ Ta⠦ Th⠦ Cc⠖ Cf⠖ Ac⠢ Ac⠦ a⠶ b⠶ c⠶ d⠖ e⠢ f⠶ g⠢ h⠖
+)Resaltadas en amarillo las casillas g⠒ y h⠲(
+
+Audio:
+Blancas: Rey en E1, Dama en D1, Torres en A1 y H1, Caballos en C3 y F3, Alfiles en C4 y G3, Peones en A2, B2, C2, D3, E4, F2, G2 y H2. Negras: Rey en E8, Dama en D8, Torres en A8 y H8, Caballos en C6 y F6, Alfiles en C5 y C8, Peones en A7, B7, C7, D6, E5, F7, G5 y H6. casillas en amarillo: G3 y H4.

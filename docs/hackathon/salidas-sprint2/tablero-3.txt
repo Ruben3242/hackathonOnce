@@ -1,0 +1,12 @@
+Diagrama: Tablero 3 · libro de ajedrez, flecha en h
+Tipo: tablero de libro 8x8.
+Elementos: 32 piezas, 2 resaltes, 1 flecha.
+
+Tablero:
+Blancas: Re⠂ Dd⠂ Ta⠂ Th⠂ Cb⠂ Cf⠒ Af⠂ Ag⠢ a⠆ b⠆ c⠲ d⠲ e⠆ f⠆ g⠆ h⠆
+Negras: Re⠦ Dd⠦ Ta⠦ Th⠦ Cb⠦ Cf⠖ Ac⠦ Af⠦ a⠶ b⠶ c⠶ d⠶ e⠖ f⠢ g⠶ h⠖
+)Resaltadas en amarillo las casillas h⠶ y h⠖(
+h⠶¬⠒⠕¬h⠖
+
+Audio:
+Blancas: Rey en E1, Dama en D1, Torres en A1 y H1, Caballos en B1 y F3, Alfiles en F1 y G5, Peones en A2, B2, C4, D4, E2, F2, G2 y H2. Negras: Rey en E8, Dama en D8, Torres en A8 y H8, Caballos en B8 y F6, Alfiles en C8 y F8, Peones en A7, B7, C7, D7, E6, F5, G7 y H6. casillas en amarillo: H7 y H6. Flecha de H7 a H6.

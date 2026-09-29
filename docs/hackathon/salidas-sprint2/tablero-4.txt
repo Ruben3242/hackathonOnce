@@ -1,0 +1,10 @@
+Diagrama: Tablero 4 · final de peones
+Tipo: tablero de libro 8x8.
+Elementos: 13 piezas, 0 resaltes, 0 flechas.
+
+Tablero:
+Blancas: Rh⠂ a⠲ b⠒ c⠆ f⠒ g⠲ h⠒
+Negras: Ra⠦ a⠶ b⠖ f⠲ g⠢ h⠲
+
+Audio:
+Blancas: Rey en H1, Peones en A4, B3, C2, F3, G4 y H3. Negras: Rey en A8, Peones en A7, B6, F4, G5 y H4.
