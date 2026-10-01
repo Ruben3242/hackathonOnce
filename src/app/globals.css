@@ -95,36 +95,46 @@ h3,
   margin-right: 0.5rem;
 }
 
-/* Barra fija: oír / copiar / dictar siempre a un Tab de distancia */
+/* Dock fijo inferior — no usa sticky dentro del main */
 .primary-actions {
-  position: sticky;
+  position: fixed;
+  left: 0;
+  right: 0;
   bottom: 0;
-  z-index: 30;
+  z-index: 50;
+  padding: 0.65rem 0.75rem calc(0.65rem + env(safe-area-inset-bottom));
+  background: #fffcf7;
+  border-top: 1px solid var(--line);
+  box-shadow: 0 -6px 24px rgba(26, 23, 20, 0.08);
+}
+
+.primary-actions__inner {
+  margin: 0 auto;
+  max-width: 42rem;
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom));
-  margin: 1.5rem -1rem -0.5rem;
-  background: color-mix(in srgb, var(--panel) 92%, transparent);
-  border-top: 2px solid var(--once);
-  backdrop-filter: blur(8px);
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 0.45rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .primary-actions__main,
-.primary-actions__ghost,
-.primary-actions__listen {
-  min-height: 2.75rem;
-  padding: 0.55rem 1.15rem;
+.primary-actions__ghost {
+  flex: 0 0 auto;
+  min-height: 2.5rem;
+  padding: 0.45rem 1rem;
   border-radius: 999px;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 700;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .primary-actions__main {
   background: var(--once);
   color: #fff;
-  border: 2px solid var(--once-dark);
+  border: 1px solid var(--once-dark);
 }
 
 .primary-actions__main:disabled,
@@ -136,13 +146,12 @@ h3,
 .primary-actions__ghost {
   background: #fff;
   color: var(--ink);
-  border: 2px solid var(--ink);
+  border: 1px solid var(--line);
 }
 
-.primary-actions__listen {
-  background: #b45309;
-  color: #fff;
-  border: 2px solid #92400e;
+.primary-actions__ghost:hover:not(:disabled),
+.primary-actions__main:hover:not(:disabled) {
+  border-color: var(--once);
 }
 
 body.has-diagram #salida:focus {

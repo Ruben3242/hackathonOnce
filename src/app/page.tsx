@@ -114,7 +114,7 @@ export default function HomePage() {
   }
 
   return (
-    <main id="contenido-principal" className="mx-auto max-w-6xl px-4 py-8 pb-28">
+    <main id="contenido-principal" className="mx-auto max-w-6xl px-4 py-8 pb-24">
       <header className="mb-8 flex flex-wrap items-end justify-between gap-4 border-b border-[#d4cbb8] pb-6">
         <div>
           <p className="text-sm font-semibold tracking-[0.14em] text-[#0066a1] uppercase">

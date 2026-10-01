@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useMemo, useRef, useState } from "react";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import { DIAGRAMAS } from "@/fixtures/once/diagramas";
 import { PIECE_CYCLE } from "@/lib/b8/pieceCycle";
@@ -15,21 +14,13 @@ import {
 } from "@/lib/b8/render";
 import { cellAriaLabel, type DiagramaCanonico, type Square } from "@/lib/b8/types";
 import { BoardGrid } from "../BoardGrid";
+import { CameraCapture } from "../CameraCapture";
 import { ChessIntel } from "../ChessIntel";
 import { DictationPanel } from "../DictationPanel";
 import { GeminiReviseToggle } from "../GeminiReviseToggle";
 import { PrimaryActions } from "../PrimaryActions";
 import { analyzeImage } from "../analyzeClient";
 import { useSpeech } from "../useSpeech";
-
-const CameraCapture = dynamic(() => import("../CameraCapture").then((m) => m.CameraCapture), {
-  ssr: false,
-  loading: () => (
-    <p className="mt-3 rounded-2xl border border-[#d4cbb8] bg-white px-4 py-6 text-sm">
-      Cargando cámara…
-    </p>
-  ),
-});
 
 function focusResult() {
   requestAnimationFrame(() => {
@@ -104,7 +95,7 @@ export default function MovilPage() {
   }
 
   return (
-    <main id="contenido-principal" className="mx-auto max-w-lg px-3 py-4 pb-32">
+    <main id="contenido-principal" className="mx-auto max-w-lg px-3 py-4 pb-24">
       <p className="text-sm font-semibold tracking-[0.14em] text-[#0066a1] uppercase">
         Vista móvil
       </p>

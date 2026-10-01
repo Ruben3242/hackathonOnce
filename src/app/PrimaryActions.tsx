@@ -10,7 +10,7 @@ type Props = {
   onDictateFocus?: () => void;
 };
 
-/** Barra fija: acciones críticas para quien usa lector o teclado. */
+/** Dock fijo inferior: acciones críticas sin tapar el contenido. */
 export function PrimaryActions({
   hasDiagram,
   speaking,
@@ -21,44 +21,42 @@ export function PrimaryActions({
   onDictateFocus,
 }: Props) {
   return (
-    <div
-      className="primary-actions"
-      role="region"
-      aria-label="Acciones principales: oír, copiar y corregir"
-    >
-      <button
-        type="button"
-        className="primary-actions__main"
-        onClick={onHear}
-        disabled={!hasDiagram || speaking}
-        accessKey="o"
-        title="Atajo: Alt+O (según navegador)"
-      >
-        {speaking ? "Leyendo…" : "Oír transcripción"}
-      </button>
-      <button type="button" className="primary-actions__ghost" onClick={onStop} accessKey="x">
-        Detener
-      </button>
-      <button
-        type="button"
-        className="primary-actions__ghost"
-        onClick={onCopy}
-        disabled={!hasDiagram}
-        accessKey="c"
-      >
-        {copied ? "Copiada" : "Copiar"}
-      </button>
-      {onDictateFocus ? (
+    <div className="primary-actions" role="region" aria-label="Acciones principales">
+      <div className="primary-actions__inner">
+        <button
+          type="button"
+          className="primary-actions__main"
+          onClick={onHear}
+          disabled={!hasDiagram || speaking}
+          accessKey="o"
+          title="Atajo Alt+O"
+        >
+          {speaking ? "Leyendo…" : "Oír"}
+        </button>
+        <button type="button" className="primary-actions__ghost" onClick={onStop} accessKey="x">
+          Detener
+        </button>
         <button
           type="button"
           className="primary-actions__ghost"
-          onClick={onDictateFocus}
+          onClick={onCopy}
           disabled={!hasDiagram}
-          accessKey="d"
+          accessKey="c"
         >
-          Corregir pieza
+          {copied ? "Copiada" : "Copiar"}
         </button>
-      ) : null}
+        {onDictateFocus ? (
+          <button
+            type="button"
+            className="primary-actions__ghost"
+            onClick={onDictateFocus}
+            disabled={!hasDiagram}
+            accessKey="d"
+          >
+            Corregir
+          </button>
+        ) : null}
+      </div>
     </div>
   );
 }

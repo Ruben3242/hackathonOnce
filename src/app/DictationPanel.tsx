@@ -3,8 +3,6 @@
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { parseDictation, type DictationResult } from "@/lib/b8/parseDictation";
 
-type SpeechRec = SpeechRecognition;
-
 function getRecognitionCtor(): (new () => SpeechRecognition) | null {
   if (typeof window === "undefined") return null;
   const w = window as Window & {
@@ -22,7 +20,7 @@ type Props = {
 
 /**
  * Corrección por texto (siempre) + micrófono (Chrome/Edge).
- * El texto es el camino fiable; la voz rellena el mismo campo.
+ * Primero pide permiso de audio; luego Web Speech API.
  */
 export function DictationPanel({ enabled, onParsed, onStatus }: Props) {
   const inputId = useId();
@@ -30,8 +28,10 @@ export function DictationPanel({ enabled, onParsed, onStatus }: Props) {
   const [listening, setListening] = useState(false);
   const [micOk, setMicOk] = useState(false);
   const [feedback, setFeedback] = useState("");
-  const recRef = useRef<SpeechRec | null>(null);
+  const recRef = useRef<SpeechRecognition | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const lastFinalRef = useRef("");
+  const appliedRef = useRef(false);
 
   useEffect(() => {
     setMicOk(Boolean(getRecognitionCtor()));
@@ -60,9 +60,6 @@ export function DictationPanel({ enabled, onParsed, onStatus }: Props) {
     const rec = recRef.current;
     recRef.current = null;
     if (rec) {
-      rec.onresult = null;
-      rec.onerror = null;
-      rec.onend = null;
       try {
         rec.stop();
       } catch {
@@ -78,72 +75,112 @@ export function DictationPanel({ enabled, onParsed, onStatus }: Props) {
 
   useEffect(() => () => stopMic(), [stopMic]);
 
-  const startMic = useCallback(() => {
+  const startMic = useCallback(async () => {
     if (!enabled) {
       report("Primero carga un tablero (por ejemplo Tablero 1).");
       return;
     }
-    stopMic();
+    if (listening) {
+      stopMic();
+      return;
+    }
+
     const Ctor = getRecognitionCtor();
     if (!Ctor) {
-      report("Este navegador no tiene micrófono de dictado. Escribe la orden abajo y pulsa Aplicar.");
+      report("Este navegador no tiene dictado por voz. Escribe la orden y pulsa Aplicar.");
       inputRef.current?.focus();
       return;
     }
-    if (typeof window !== "undefined" && !window.isSecureContext && location.hostname !== "localhost") {
-      report("El micrófono exige HTTPS o localhost. Puedes escribir la orden en el campo.");
+    if (!window.isSecureContext && location.hostname !== "localhost" && location.hostname !== "127.0.0.1") {
+      report("El micrófono exige HTTPS o localhost. Escribe la orden en el campo.");
       inputRef.current?.focus();
       return;
     }
+
+    // Pedir permiso y soltar el stream: si se deja abierto, Chrome bloquea SpeechRecognition.
+    try {
+      if (navigator.mediaDevices?.getUserMedia) {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        stream.getTracks().forEach((t) => t.stop());
+      }
+    } catch {
+      report("No hay permiso de micrófono. Actívalo en el candado de la barra de dirección, o escribe la orden.");
+      inputRef.current?.focus();
+      return;
+    }
+
+    appliedRef.current = false;
+    lastFinalRef.current = "";
 
     const rec = new Ctor();
     rec.lang = "es-ES";
-    rec.continuous = false;
+    // continuous + interim: da tiempo a terminar la frase
+    rec.continuous = true;
     rec.interimResults = true;
-    rec.maxAlternatives = 3;
+    rec.maxAlternatives = 1;
+
+    const finishOk = (candidate: string) => {
+      if (appliedRef.current) return;
+      appliedRef.current = true;
+      applyText(candidate);
+      try {
+        rec.stop();
+      } catch {
+        /* ignore */
+      }
+    };
 
     rec.onresult = (ev: SpeechRecognitionEvent) => {
-      let best = "";
+      let interim = "";
+      let finalChunk = "";
       for (let i = ev.resultIndex; i < ev.results.length; i++) {
         const row = ev.results[i];
-        if (!row) continue;
-        const alt = row[0]?.transcript ?? "";
-        if (row.isFinal) {
-          best = alt;
-          break;
-        }
-        if (!best) best = alt;
+        const piece = row[0]?.transcript?.trim() ?? "";
+        if (!piece) continue;
+        if (row.isFinal) finalChunk += (finalChunk ? " " : "") + piece;
+        else interim += (interim ? " " : "") + piece;
       }
-      if (best) setText(best.trim());
-      const finalRow = ev.results[ev.results.length - 1];
-      if (finalRow?.isFinal) {
-        const transcript = finalRow[0]?.transcript?.trim() ?? best.trim();
-        if (transcript) applyText(transcript);
-        stopMic();
+      if (finalChunk) {
+        lastFinalRef.current = `${lastFinalRef.current} ${finalChunk}`.trim();
+        setText(lastFinalRef.current);
+      } else if (interim) {
+        setText(`${lastFinalRef.current} ${interim}`.trim());
+      }
+
+      if (finalChunk) {
+        const candidate = lastFinalRef.current;
+        const parsed = parseDictation(candidate);
+        if (parsed.ok) finishOk(candidate);
       }
     };
 
     rec.onerror = (ev: SpeechRecognitionErrorEvent) => {
+      if (ev.error === "aborted") return;
       setListening(false);
       recRef.current = null;
       if (ev.error === "not-allowed" || ev.error === "service-not-allowed") {
-        report("Permiso de micrófono denegado. Escribe la orden en el campo y pulsa Aplicar.");
+        report("Permiso de micrófono denegado. Escribe la orden y pulsa Aplicar.");
       } else if (ev.error === "no-speech") {
-        report("No oí nada. Escribe p. ej. caballo negro en e4 y pulsa Aplicar.");
-      } else if (ev.error !== "aborted") {
+        report("No oí nada. Acércate al micrófono o escribe la orden.");
+      } else if (ev.error === "network") {
+        report("El dictado de Chrome necesita red. Comprueba internet o escribe la orden.");
+      } else {
         report(`Micrófono: ${ev.error}. Puedes escribir la orden abajo.`);
       }
-      inputRef.current?.focus();
     };
 
     rec.onend = () => {
-      setListening(false);
+      if (!appliedRef.current && lastFinalRef.current) {
+        setText(lastFinalRef.current);
+        report(`Oí: «${lastFinalRef.current}». Pulsa Aplicar si es correcto, o Hablar de nuevo.`);
+      }
       recRef.current = null;
+      setListening(false);
     };
 
     recRef.current = rec;
     setListening(true);
-    report("Escuchando… Di: caballo negro en e4. O escribe y pulsa Aplicar.");
+    report("Escuchando… Di despacio: caballo negro en e4.");
     try {
       rec.start();
     } catch (err) {
@@ -151,12 +188,12 @@ export function DictationPanel({ enabled, onParsed, onStatus }: Props) {
       recRef.current = null;
       report(
         err instanceof Error
-          ? `No pude iniciar el micrófono (${err.message}). Escribe la orden abajo.`
-          : "No pude iniciar el micrófono. Escribe la orden abajo.",
+          ? `No pude iniciar el micrófono (${err.message}). Escribe la orden.`
+          : "No pude iniciar el micrófono. Escribe la orden.",
       );
       inputRef.current?.focus();
     }
-  }, [applyText, enabled, report, stopMic]);
+  }, [applyText, enabled, listening, report, stopMic]);
 
   return (
     <section
@@ -167,8 +204,7 @@ export function DictationPanel({ enabled, onParsed, onStatus }: Props) {
         Corregir pieza (texto o voz)
       </h2>
       <p className="mt-1 text-sm text-[#5c5348]">
-        Ejemplo: <strong>caballo negro en e4</strong> · <strong>vaciar a2</strong> ·{" "}
-        <strong>torre blanca en a1</strong>
+        Ejemplo: <strong>caballo negro en e4</strong> · <strong>vaciar a2</strong>
       </p>
       <div className="mt-3 flex flex-wrap gap-2">
         <label className="sr-only" htmlFor={inputId}>
@@ -178,7 +214,7 @@ export function DictationPanel({ enabled, onParsed, onStatus }: Props) {
           ref={inputRef}
           id={inputId}
           type="text"
-          className="min-h-12 min-w-[16rem] flex-1 rounded-xl border-2 border-[#d4cbb8] bg-white px-3 py-2 text-base text-[#1a1714]"
+          className="min-h-12 min-w-[12rem] flex-1 rounded-xl border-2 border-[#d4cbb8] bg-white px-3 py-2 text-base text-[#1a1714]"
           placeholder="caballo negro en e4"
           value={text}
           disabled={!enabled}
@@ -204,16 +240,14 @@ export function DictationPanel({ enabled, onParsed, onStatus }: Props) {
           className={
             listening
               ? "min-h-12 rounded-full bg-[#b45309] px-5 py-2 text-sm font-bold text-white"
-              : "min-h-12 rounded-full border-2 border-[#0066a1] px-5 py-2 text-sm font-bold text-[#0066a1] disabled:opacity-40"
+              : "min-h-12 rounded-full border-2 border-[#0066a1] bg-white px-5 py-2 text-sm font-bold text-[#0066a1] disabled:opacity-40"
           }
-          disabled={!enabled}
+          disabled={!enabled || !micOk}
           aria-pressed={listening}
-          onClick={() => {
-            if (listening) stopMic();
-            else startMic();
-          }}
+          title={micOk ? "Dictar con el micrófono" : "Dictado por voz no disponible en este navegador"}
+          onClick={() => void startMic()}
         >
-          {listening ? "Parar micrófono" : micOk ? "Hablar" : "Hablar (no disponible)"}
+          {listening ? "Parar" : "Hablar"}
         </button>
       </div>
       {feedback ? (
@@ -223,8 +257,8 @@ export function DictationPanel({ enabled, onParsed, onStatus }: Props) {
       ) : (
         <p className="mt-2 text-xs text-[#5c5348]">
           {micOk
-            ? "Si el micrófono falla, escribe la misma orden y pulsa Aplicar."
-            : "Tu navegador no expone dictado por voz: usa el campo de texto (Chrome/Edge sí suelen tener micrófono)."}
+            ? "Hablar pide permiso de micrófono (Chrome o Edge). Si no oye, el texto sigue funcionando."
+            : "Este navegador no tiene dictado por voz: usa el campo y Aplicar."}
         </p>
       )}
     </section>
