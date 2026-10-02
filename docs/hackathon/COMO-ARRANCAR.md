@@ -1,4 +1,4 @@
-# Cómo arrancar (Sprint 2)
+# Cómo arrancar
 
 En **PowerShell** de Windows, `npm` a veces falla porque bloquea `npm.ps1`. Usa el `.cmd`:
 
@@ -33,8 +33,6 @@ Si la IP no carga: `npm.cmd run phone:firewall` (como admin) o permite Node en e
 
 - Carga tablero 1–6 o sube `public/diagramas/tablero-2.svg`.
 - **Oír** usa voz neural (o sistema / Gemini).
-- **Copiar transcripción** pega el texto del campo 15.
+- **Copiar transcripción** copia braille y audio tal cual los genera el programa.
 - El grid se recorre con flechas; Enter cambia la pieza.
 - El panel de jugadas verifica material y propone la mejor continuación.
-
-Los textos del formulario están en `docs/hackathon/formulario-sprint2.md`.

@@ -10,7 +10,7 @@ type Props = {
   onDictateFocus?: () => void;
 };
 
-/** Dock fijo inferior: acciones críticas sin tapar el contenido. */
+/** Barra fija inferior: oír, detener, copiar y saltar a corregir. */
 export function PrimaryActions({
   hasDiagram,
   speaking,

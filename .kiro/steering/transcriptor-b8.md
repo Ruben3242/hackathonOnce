@@ -12,5 +12,5 @@ inclusion: always
 6. Flecha ⠒⠕ o ⠪⠒ según el sentido; origen y destino son casillas B8.
 7. El audio agrupa por bando y tipo de pieza, en español, como las págs. 9–12 («Rey en E1, Torres en A1 y H1»).
 8. Orden de lectura fijo: Blancas → Negras → resaltes → flechas.
-9. El acierto se comprueba con fixtures de oro del PDF. Está prohibido retocar a mano la salida antes de pegarla en el formulario.
+9. El acierto se comprueba con fixtures de oro del PDF. La transcripción copiada es siempre la del programa, sin edición manual.
 10. Interfaz teclado-primero (NVDA/Narrador/VoiceOver). La imagen es entrada, nunca la salida accesible.

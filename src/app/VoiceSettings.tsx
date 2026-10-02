@@ -38,7 +38,7 @@ type Props = {
 const selectClass =
   "mt-1 w-full rounded-md border border-[#d4cbb8] bg-white px-3 py-2 text-sm text-[#1a1714]";
 
-/** Ajustes de voz colapsados: no saturan el camino crítico oír/copiar. */
+/** Selector de motor, idioma, voz y velocidad, oculto por defecto. */
 export function VoiceSettings(props: Props) {
   return (
     <details className="mt-4 rounded-xl bg-[#f4efe6] p-3">

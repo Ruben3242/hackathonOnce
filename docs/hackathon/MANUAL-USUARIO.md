@@ -13,7 +13,7 @@ No describe la foto. Transcribe la posición al Documento técnico B8 (Comisión
 | Braille B8 | Panel derecho, copiable |
 | Voz (TTS del navegador) | Idioma + modelo de voz + velocidad |
 | Tablero 8×8 | Flechas, Enter corrige pieza |
-| Copiar transcripción | Salida literal para el formulario |
+| Copiar transcripción | Salida B8 y audio generada por el programa |
 | Vista móvil / cámara | `/movil` — vídeo, foto o galería |
 | Instalar PWA o APK | `/instalar` |
 | Jugadas y alertas | Panel bajo el braille: material, mate, mejor lance |

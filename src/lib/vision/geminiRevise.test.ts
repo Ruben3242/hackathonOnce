@@ -27,7 +27,7 @@ describe("geminiConfigured", () => {
     try {
       process.env.GEMINI_API_KEY = "";
       expect(geminiConfigured()).toBe(false);
-      process.env.GEMINI_API_KEY = "AQ.Ab8RN6LOz1KxYth5g5Db8YaXpu-yTrqRz5HoynOydo3objd1A";
+      process.env.GEMINI_API_KEY = "AQ.token-de-prueba-no-valido";
       expect(geminiConfigured()).toBe(false);
       process.env.GEMINI_API_KEY = "AIzaSyDummyKeyForTests1234567890abcd";
       expect(geminiConfigured()).toBe(true);
