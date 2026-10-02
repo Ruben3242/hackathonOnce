@@ -109,11 +109,11 @@ export default function AyudaPage() {
 
         <h2 className="text-2xl">Límites de esta versión</h2>
         <p>
-          La visión de los seis ejemplos ONCE usa el nombre del archivo. El resto se intenta primero
-          con el modelo local (Kaggle). Resaltes y flechas en fotos reales suelen necesitar revisión
-          Gemini o corrección manual/dictado. Si la foto no es de estilo digital, activa la pasada
-          Gemini (clave <code>GEMINI_API_KEY</code> en <code>.env.local</code>). Sin clave, todo
-          sigue en local.
+          El reconocedor local ya viene entrenado (<code>models/piece-centroids.json</code>); al
+          arrancar no se reentrena. Los botones Tablero 1–6 cargan los ejemplos del enunciado. Para
+          probar el modelo con fotos, usa <strong>Foto Kaggle 1–3</strong> o un JPEG de{" "}
+          <code>public/pruebas/</code> (tableros digitales, acierto casi total). Fotos de libro
+          pueden fallar más: corrige a mano o por voz. Gemini es opcional y no hace falta clave.
         </p>
       </section>
     </main>

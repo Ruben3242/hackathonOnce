@@ -31,7 +31,7 @@ npx.cmd next dev --hostname 0.0.0.0
 
 Si la IP no carga: `npm.cmd run phone:firewall` (como admin) o permite Node en el firewall de Windows. No uses la IP de VirtualBox (`192.168.56.x`).
 
-- Carga tablero 1–6 o sube `public/diagramas/tablero-2.svg`.
+- Carga Tablero 1–6 (ejemplos ONCE) o **Foto Kaggle 1–3** / un JPEG de `public/pruebas/` (reconocedor local).
 - **Oír** usa voz neural (o sistema / Gemini).
 - **Copiar transcripción** copia braille y audio tal cual los genera el programa.
 - El grid se recorre con flechas; Enter cambia la pieza.

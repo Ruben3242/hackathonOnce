@@ -155,8 +155,9 @@ export default function HomePage() {
             Sube un diagrama
           </h2>
           <p className="mt-2 text-sm text-[#5c5348]">
-            PNG, JPEG o SVG. Los ejemplos ONCE se llaman <strong>tablero-1</strong> …
-            <strong>tablero-6</strong>.
+            PNG, JPEG o SVG. Para el reconocedor local (casi el 100 % en tableros digitales), usa
+            las <strong>Foto Kaggle</strong> de abajo o un archivo de{" "}
+            <code className="text-[0.85em]">public/pruebas/</code>.
           </p>
           <label className="mt-4 block">
             <span className="text-sm font-semibold">Archivo de imagen</span>
@@ -170,6 +171,22 @@ export default function HomePage() {
               }}
             />
           </label>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {(["kaggle-1.jpeg", "kaggle-2.jpeg", "kaggle-3.jpeg"] as const).map((name, i) => (
+              <button
+                key={name}
+                type="button"
+                className="min-h-10 rounded-xl border border-[#d4cbb8] bg-[#f4efe6] px-3 py-2 text-sm font-semibold hover:border-[#0066a1] hover:bg-white"
+                onClick={() => {
+                  void fetch(`/pruebas/${name}`)
+                    .then((r) => r.blob())
+                    .then((blob) => onUpload(new File([blob], name, { type: "image/jpeg" })));
+                }}
+              >
+                Foto Kaggle {i + 1}
+              </button>
+            ))}
+          </div>
           <details className="mt-3">
             <summary className="cursor-pointer text-sm font-semibold">Opciones avanzadas</summary>
             <GeminiReviseToggle value={revise} onChange={setRevise} />
