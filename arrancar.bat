@@ -20,6 +20,16 @@ if not exist "node_modules\" (
   )
 )
 
+echo Cerrando un servidor anterior en el puerto 3000 si existiera...
+for /f "tokens=5" %%a in ('netstat -ano ^| findstr :3000 ^| findstr LISTENING') do (
+  taskkill /F /PID %%a >nul 2>&1
+)
+
+if exist ".next\" (
+  echo Limpiando cache .next ^(evita 404 en /movil /ayuda /instalar^)...
+  rmdir /s /q ".next"
+)
+
 echo.
 echo Servidor en http://localhost:3000
 echo   Escritorio  http://localhost:3000
