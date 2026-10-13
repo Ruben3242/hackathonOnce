@@ -34,13 +34,15 @@ echo.
 echo Servidor en http://localhost:3000
 echo   Escritorio  http://localhost:3000
 echo   Movil       http://localhost:3000/movil
-echo   Instalar    http://localhost:3000/instalar  ^(QR e IP para el telefono^)
+echo   Instalar    http://localhost:3000/instalar
 echo   Manual      http://localhost:3000/ayuda
 echo.
-echo El telefono debe estar en la MISMA Wi-Fi. Abre /instalar en el PC y escanea el QR.
+echo Abre con Chrome o Edge. El navegador se abrira cuando la pagina responda.
+echo Telefono, misma Wi-Fi: /instalar y el QR. Foto y Galeria funcionan asi.
+echo Camara en vivo y microfono del telefono: en OTRA ventana, npm.cmd run phone:tunnel
 echo Cierra esta ventana o Ctrl+C para parar.
 echo.
 
-start "" "http://localhost:3000"
+start "Transcriptor B8" powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\esperar-y-abrir.ps1"
 call npm.cmd run dev
 endlocal

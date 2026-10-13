@@ -60,10 +60,10 @@ export function defaultNeuralVoice(lang: string): string {
 
 export function useSpeech() {
   const [voices, setVoices] = useState<VoiceChoice[]>([]);
-  const [voiceURI, setVoiceURI] = useState(defaultNeuralVoice("es-ES"));
+  const [voiceURI, setVoiceURI] = useState("");
   const [lang, setLangState] = useState("es-ES");
   const [rate, setRate] = useState(0.95);
-  const [engine, setEngineState] = useState<SpeechEngine>("neural");
+  const [engine, setEngineState] = useState<SpeechEngine>("system");
   const [geminiReady, setGeminiReady] = useState(false);
   const [speaking, setSpeaking] = useState(false);
   const [status, setStatus] = useState("");
@@ -189,8 +189,8 @@ export function useSpeech() {
       speakSystem(text);
       return;
     }
-    void speakRemote(text, engine).catch((err) => {
-      setStatus(err instanceof Error ? err.message : "Voz remota falló; uso el sistema.");
+    void speakRemote(text, engine).catch(() => {
+      setStatus("Esa voz no está disponible. Uso la del navegador.");
       speakSystem(text);
     });
   }

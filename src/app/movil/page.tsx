@@ -19,6 +19,7 @@ import { ChessIntel } from "../ChessIntel";
 import { DictationPanel } from "../DictationPanel";
 import { GeminiReviseToggle } from "../GeminiReviseToggle";
 import { PrimaryActions } from "../PrimaryActions";
+import { copyText } from "@/lib/copyText";
 import { analyzeImage } from "../analyzeClient";
 import { useSpeech } from "../useSpeech";
 
@@ -89,9 +90,9 @@ export default function MovilPage() {
 
   async function copyOut() {
     if (!full) return;
-    await navigator.clipboard.writeText(full);
-    setCopied(true);
-    setStatus("Transcripción copiada.");
+    const ok = await copyText(full);
+    setCopied(ok);
+    setStatus(ok ? "Transcripción copiada." : "No pude copiar. Selecciona el texto de la voz y cópialo a mano.");
   }
 
   return (
@@ -103,7 +104,7 @@ export default function MovilPage() {
       <p className="mt-2 text-sm text-[#5c5348]">
         Encaja el tablero en el recuadro. Luego oye, copia o corrige pieza.{" "}
         <Link className="font-semibold text-[#0066a1] underline" href="/instalar">
-          Instalar PWA o APK
+          Instalar en el navegador (el APK no abre)
         </Link>
         .
       </p>

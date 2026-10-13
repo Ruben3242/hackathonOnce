@@ -36,8 +36,9 @@ export default function AyudaPage() {
           </li>
           <li>
             <strong>Audio:</strong> «Rey en E1, Torres en A1 y H1…», como las páginas 9–12 del
-            enunciado. Por defecto usa voz neural clara; también puedes elegir Gemini TTS o las
-            voces del sistema.
+            enunciado. Oír usa la voz del navegador: no hace falta Python ni internet. Si no suena en
+            español, en Ajustes de voz elige una voz es-ES, o en Windows añade el idioma Español. La
+            voz neural es opcional y puede no estar disponible.
           </li>
           <li>
             <strong>Tablero táctil:</strong> grid 8×8. El lector anuncia casilla, pieza, resalte y
@@ -96,8 +97,9 @@ export default function AyudaPage() {
           usa{" "}
           <Link className="font-semibold text-[#0066a1] underline" href="/instalar">
             Instalar
-          </Link>{" "}
-          (PWA o APK WebView).
+          </Link>
+          . En Android y en iPhone la vía que funciona es el navegador. El APK se descarga, pero no
+          se abre, y no existe para iOS.
         </p>
 
         <h2 className="text-2xl">Jugadas y veracidad</h2>
@@ -110,10 +112,12 @@ export default function AyudaPage() {
         <h2 className="text-2xl">Límites de esta versión</h2>
         <p>
           El reconocedor local ya viene entrenado (<code>models/piece-centroids.json</code>); al
-          arrancar no se reentrena. Los botones Tablero 1–6 cargan los ejemplos del enunciado. Para
-          probar el modelo con fotos, usa <strong>Foto Kaggle 1–3</strong> o un JPEG de{" "}
-          <code>public/pruebas/</code> (tableros digitales, acierto casi total). Fotos de libro
-          pueden fallar más: corrige a mano o por voz. Gemini es opcional y no hace falta clave.
+          arrancar no se reentrena. Los botones Tablero 1–6 cargan los ejemplos del enunciado, no
+          pasan por el modelo. El modelo se entrenó con 10 000 tableros sintéticos de 400×400 px y
+          entre 5 y 15 piezas. En fotos de ese tipo acierta casi todas las casillas; Foto Kaggle 1
+          y 2 salen enteras, la 3 falla una casilla. Una foto de libro, con otra resolución o con
+          perspectiva, falla más: corrige a mano o por voz. Gemini es opcional y no hace falta clave.
+          El APK se descarga, pero no se abre, y solo es para Android; en iPhone usa el navegador.
         </p>
       </section>
     </main>

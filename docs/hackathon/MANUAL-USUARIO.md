@@ -48,11 +48,11 @@ python scripts/download_kaggle_chess.py
 python scripts/train_piece_centroids.py
 ```
 
-El resultado (`models/piece-centroids.json`) es el clasificador de piezas que usa `/api/analyze` cuando el archivo no es un tablero ONCE 1–6. En tableros digitales al estilo del dataset acierta casi todas las casillas; los 6 diagramas ONCE siguen yendo por el nombre del archivo.
+El resultado (`models/piece-centroids.json`) es el clasificador de piezas que usa `/api/analyze` cuando el archivo no es un tablero ONCE 1–6. El dataset son 10 000 tableros sintéticos de 400×400 px, con entre 5 y 15 piezas. En ese formato acierta casi todas las casillas. En una pasada del 13 de octubre de 2026 sobre las primeras 30 imágenes del directorio: 1 896/1 920 casillas (98,8 %) y 25 tableros enteros de 30. Las fotos `kaggle-1` y `kaggle-2` de `public/pruebas/` salen exactas; `kaggle-3` falla una casilla. Los 6 diagramas ONCE no pasan por este modelo: se cargan por el botón o por el nombre del archivo. Una foto que no sea de ese formato (libro, otra resolución, perspectiva) falla más.
 
 ## Gemini opcional (fotos de libro / móvil)
 
 Copia `.env.example` a `.env.local` y pega tu API key de [Google AI Studio](https://aistudio.google.com/apikey). Reinicia `npm.cmd run dev`.
 
-Por defecto: el modelo local va primero; Gemini (Flash, incluido en el plan de estudiante) solo entra si el recuento de piezas no cuadra, o si eliges «Siempre». La clave no se manda al navegador.
+Si hay clave y el modo no es «Solo modelo local», el servidor pide a Gemini el JSON de piezas y, si vale, sustituye al modelo local. Sin clave no se llama. Los modos Auto y Siempre hacen hoy la misma llamada. La clave no se manda al navegador.
 

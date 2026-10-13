@@ -52,11 +52,11 @@ export function VoiceSettings(props: Props) {
             value={props.engine}
             onChange={(e) => props.setEngine(e.target.value as SpeechEngine)}
           >
-            <option value="neural">Neural (clara, varios idiomas)</option>
+            <option value="system">Voces del navegador</option>
+            <option value="neural">Neural (opcional; si falla, suena el navegador)</option>
             <option value="gemini" disabled={!props.geminiReady}>
-              Gemini TTS{props.geminiReady ? "" : " (sin clave)"}
+              Gemini TTS{props.geminiReady ? "" : " (hace falta clave)"}
             </option>
-            <option value="system">Voces del sistema</option>
           </select>
         </label>
         <label className="text-sm">

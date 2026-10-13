@@ -16,7 +16,8 @@ export default function InstalarPage() {
     <main id="contenido-principal" className="mx-auto max-w-3xl px-4 py-8">
       <h1 className="display text-4xl font-semibold">Probar en el móvil</h1>
       <p className="mt-4 text-lg text-[#5c5348]">
-        Sin Android Studio. Elige: URL en Chrome, cable USB, túnel HTTPS, o APK WebView. La app es
+        Sin Android Studio. En Android y en iPhone abre la URL en el navegador (Chrome o Safari).
+        El APK se descarga, pero no llega a abrirse, y no existe para iOS. La app es
         la misma web (<Link className="font-semibold text-[#0066a1] underline" href="/movil">/movil</Link>
         ).
       </p>

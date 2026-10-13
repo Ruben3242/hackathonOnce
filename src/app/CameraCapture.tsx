@@ -160,8 +160,9 @@ export function CameraCapture({ busy, onCapture }: Props) {
 
       {insecure && mode === "video" ? (
         <p className="mt-2 text-sm text-[#b45309]">
-          Estás en HTTP (IP local). Casi todos los móviles bloquean la cámara en vivo. Usa Foto, o
-          instala la PWA desde /instalar.
+          Estás en HTTP (la IP del PC). El móvil bloquea la cámara en vivo y el micrófono en esa dirección.
+          Foto y Galería sí sirven. Para el vídeo en vivo, en el PC ejecuta npm.cmd run phone:tunnel y abre
+          la URL https que salga.
         </p>
       ) : null}
 

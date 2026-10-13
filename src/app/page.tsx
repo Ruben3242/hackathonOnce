@@ -18,6 +18,7 @@ import { DictationPanel } from "./DictationPanel";
 import { GeminiReviseToggle } from "./GeminiReviseToggle";
 import { PrimaryActions } from "./PrimaryActions";
 import { VoiceSettings } from "./VoiceSettings";
+import { copyText } from "@/lib/copyText";
 import { analyzeImage } from "./analyzeClient";
 import { useSpeech } from "./useSpeech";
 
@@ -95,7 +96,11 @@ export default function HomePage() {
 
   async function copyOut() {
     if (!full) return;
-    await navigator.clipboard.writeText(full);
+    const ok = await copyText(full);
+    if (!ok) {
+      announce("No pude copiar. Selecciona el texto de «Lo que dice la voz» y cópialo a mano.");
+      return;
+    }
     setCopied(true);
     announce("Transcripción copiada. Pégala tal cual, sin editarla.");
   }
@@ -155,9 +160,9 @@ export default function HomePage() {
             Sube un diagrama
           </h2>
           <p className="mt-2 text-sm text-[#5c5348]">
-            PNG, JPEG o SVG. Para el reconocedor local (casi el 100 % en tableros digitales), usa
-            las <strong>Foto Kaggle</strong> de abajo o un archivo de{" "}
-            <code className="text-[0.85em]">public/pruebas/</code>.
+            PNG, JPEG o SVG. El modelo local se entrenó con tableros sintéticos de 400×400 px y
+            entre 5 y 15 piezas. En ese formato (Foto Kaggle) acierta casi todas las casillas. Una
+            foto de libro, con otra resolución o con perspectiva, falla más.
           </p>
           <label className="mt-4 block">
             <span className="text-sm font-semibold">Archivo de imagen</span>

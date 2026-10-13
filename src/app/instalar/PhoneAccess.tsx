@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { copyText } from "@/lib/copyText";
 
 type LanInfo = {
   urls: Array<{ label: string; url: string; preferred?: boolean }>;
@@ -35,7 +36,8 @@ export function PhoneAccess({ initialApk }: { initialApk: boolean }) {
   );
 
   async function copy(text: string) {
-    await navigator.clipboard.writeText(text);
+    const ok = await copyText(text);
+    if (!ok) return;
     setCopied(text);
     setTimeout(() => setCopied(""), 2000);
   }
@@ -122,10 +124,11 @@ export function PhoneAccess({ initialApk }: { initialApk: boolean }) {
       </section>
 
       <section className="rounded-2xl border border-[#d4cbb8] bg-[var(--panel)] p-5">
-        <h2 className="text-2xl">D. APK (icono en el móvil)</h2>
+        <h2 className="text-2xl">D. APK (solo Android, no abre)</h2>
         <p className="mt-2 text-sm text-[#5c5348]">
-          WebView mínimo: abre la web. No hace falta Android Studio: se genera con{" "}
-          <code>npm.cmd run apk</code> (SDK + Gradle por consola).
+          La descarga del archivo funciona. Abrir la aplicación instalada no funciona en esta
+          entrega: el icono no llega a mostrar el transcriptor. El APK solo existe para Android.
+          En iPhone no hay aplicación; usa Safari con la URL de la sección A o el túnel HTTPS.
         </p>
         {(info?.apk ?? initialApk) ? (
           <p className="mt-4">
@@ -143,12 +146,9 @@ export function PhoneAccess({ initialApk }: { initialApk: boolean }) {
           </p>
         )}
         <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm">
-          <li>Descarga el APK desde esta misma página en el móvil (o pásalo por cable).</li>
-          <li>Permite instalar apps de orígenes desconocidos para Chrome/Archivos.</li>
-          <li>
-            Al abrir, pega la URL de la sección A o C + <code>/movil</code> (ej.{" "}
-            <code>http://10.168.4.156:3000/movil</code>).
-          </li>
+          <li>La descarga desde esta página (o por cable) se completa.</li>
+          <li>Instalarlo en Android pide permitir orígenes desconocidos.</li>
+          <li>Al abrirlo, la app no arranca. En iOS no se puede instalar.</li>
         </ol>
       </section>
     </div>
